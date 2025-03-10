@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rental;
 use Illuminate\Http\Request;
 
 class RentalController extends Controller
@@ -11,7 +12,7 @@ class RentalController extends Controller
      */
     public function index()
     {
-        //
+        return Rental::all();
     }
 
     /**
@@ -19,15 +20,15 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Rental::create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Rental $rental)
     {
-        //
+        return $rental;
     }
 
     /**
@@ -35,14 +36,18 @@ class RentalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $rentals = Rental::update($request->all());
+        return $rentals;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Rental $rentals)
     {
-        //
+        $rentals->delete();
+        return response()->noContent();
     }
+
+    
 }
