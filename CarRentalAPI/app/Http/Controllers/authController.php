@@ -27,4 +27,19 @@ class AuthController extends Controller
         ]);
         return response()->json(['token'=>$user->api_token],201);
     }
+
+
+    public function login(Request $request){
+        $request->validate([
+            'email'=>'required|unique:users,email',
+            'password'=>'required|confirmed',
+        ]);
+        $user = User::where('email',$request->email)->first();
+        if (!$user || !Hash::check($request->password,$user->password)){
+            return response()->json(['message'=>'Unauthorized'],401);
+        }
+        $user->api_token = Str::random(60);
+        $user->save();
+        return response()->json(['token'=>$user->api_token],200);
+    }
 }
