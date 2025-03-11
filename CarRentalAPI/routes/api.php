@@ -30,3 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // });
     // Route::post('payments/create/{rentalId}', [PaymentController::class, 'createPayment']);
 });
+
+
+Route::get('api/documentation', function () {
+    return view('swagger::index');
+});

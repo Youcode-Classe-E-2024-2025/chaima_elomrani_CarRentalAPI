@@ -5,37 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 
-/**
- * @OA\Info(
- *      title="Car Rental API",
- *      version="1.0.0",
- *      description="Documentation de l'API de location de voitures"
- * )
- * 
- * @OA\Tag(
- *     name="Cars",
- *     description="Gestion des voitures"
- * )
- */
+
 
 class CarController extends Controller
 {
 
     /**
      * @OA\Get(
-     *     path="/cars",
-     *     summary="Afficher toutes les voitures",
-     *     tags={"Cars"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Liste des voitures",
-     *         @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/Car"))
-     *     )
+     *     path="/api/cars",
+     *     summary="Display a listing of cars",
+     *     tags={"cars"},
+     *     @OA\Response(response="200", description="Display a listing of cars")
      * )
-     */
-
-    /**
-     * Display a listing of the resource.
      */
     public function index()
     {
@@ -43,24 +24,24 @@ class CarController extends Controller
     }
 
 
-/**
+  /**
      * @OA\Post(
-     *     path="/cars",
-     *     summary="Ajouter une nouvelle voiture",
-     *     tags={"Cars"},
+     *     path="/api/cars",
+     *     summary="Store a newly created car",
+     *     tags={"cars"},
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Car")
+     *         @OA\JsonContent(
+     *             required={"mark", "model", "color", "price", "year"},
+     *             @OA\Property(property="mark", type="string"),
+     *             @OA\Property(property="model", type="string"),
+     *             @OA\Property(property="color", type="string"),
+     *             @OA\Property(property="price", type="number"),
+     *             @OA\Property(property="year", type="integer")
+     *         )
      *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Voiture ajoutée avec succès"
-     *     )
+     *     @OA\Response(response="201", description="Car created successfully")
      * )
-     */
-
-    /**
-     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
@@ -69,25 +50,17 @@ class CarController extends Controller
 
  /**
      * @OA\Get(
-     *     path="/cars/{id}",
-     *     summary="Afficher une voiture spécifique",
-     *     tags={"Cars"},
+     *     path="/api/cars/{id}",
+     *     summary="Display the specified car",
+     *     tags={"cars"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Détails de la voiture",
-     *         @OA\JsonContent(ref="#/components/schemas/Car")
-     *     )
+     *     @OA\Response(response="200", description="Display the specified car")
      * )
-     */
-
-    /**
-     * Display the specified resource.
      */
     public function show(Car $car)
     {
@@ -95,11 +68,11 @@ class CarController extends Controller
     }
 
 
-    /**
+   /**
      * @OA\Put(
-     *     path="/cars/{id}",
-     *     summary="Mettre à jour une voiture",
-     *     tags={"Cars"},
+     *     path="/api/cars/{id}",
+     *     summary="Update the specified car",
+     *     tags={"cars"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -108,18 +81,16 @@ class CarController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(ref="#/components/schemas/Car")
+     *         @OA\JsonContent(
+     *             @OA\Property(property="mark", type="string"),
+     *             @OA\Property(property="model", type="string"),
+     *             @OA\Property(property="color", type="string"),
+     *             @OA\Property(property="price", type="number"),
+     *             @OA\Property(property="year", type="integer")
+     *         )
      *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Voiture mise à jour avec succès"
-     *     )
+     *     @OA\Response(response="200", description="Car updated successfully")
      * )
-     */
-
-
-    /**
-     * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -128,26 +99,19 @@ class CarController extends Controller
     }
 
 
-       /**
+   /**
      * @OA\Delete(
-     *     path="/cars/{id}",
-     *     summary="Supprimer une voiture",
-     *     tags={"Cars"},
+     *     path="/api/cars/{id}",
+     *     summary="Remove the specified car",
+     *     tags={"cars"},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
-     *     @OA\Response(
-     *         response=204,
-     *         description="Voiture supprimée avec succès"
-     *     )
+     *     @OA\Response(response="200", description="Car deleted successfully")
      * )
-     */
-
-    /**
-     * Remove the specified resource from storage.
      */
     public function destroy(Car $cars)
     {
@@ -156,16 +120,3 @@ class CarController extends Controller
     }
 }
 
-/**
- * @OA\Schema(
- *     schema="Car",
- *     type="object",
- *     required={"model", "brand", "daily_price"},
- *     @OA\Property(property="id", type="integer", example=1),
- *     @OA\Property(property="model", type="string", example="Tesla Model 3"),
- *     @OA\Property(property="brand", type="string", example="Tesla"),
- *     @OA\Property(property="daily_price", type="number", format="float", example=99.99),
- *     @OA\Property(property="created_at", type="string", format="date-time"),
- *     @OA\Property(property="updated_at", type="string", format="date-time")
- * )
- */

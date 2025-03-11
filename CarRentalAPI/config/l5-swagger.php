@@ -292,6 +292,8 @@ return [
                  * the tag.
                  */
                 'filter' => env('L5_SWAGGER_UI_FILTERS', true), // true | false
+                'enabled' => env('SWAGGER_UI_ENABLED', true),
+                'docs_url' => env('SWAGGER_DOCS_URL', 'http://127.0.0.1:8000/api/documentation'),
             ],
 
             'authorization' => [
@@ -314,5 +316,7 @@ return [
         'constants' => [
             'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://my-default-host.com'),
         ],
+
+        
     ],
 ];
