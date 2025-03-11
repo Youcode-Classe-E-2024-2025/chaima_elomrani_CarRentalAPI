@@ -42,4 +42,17 @@ class AuthController extends Controller
         $user->save();
         return response()->json(['token'=>$user->api_token],200);
     }
+
+    
+
+    public function logout(Request $request){
+        $user = User::where('api_token', $request->bearerToken())->first();
+        if ($user) {
+            $user->api_token = null;
+            $user->save();
+            return response()->json(['message' => 'Logout successful']);
+        }
+
+        return response()->json(['message' => 'Invalid token'], 401);
+    }
 }
