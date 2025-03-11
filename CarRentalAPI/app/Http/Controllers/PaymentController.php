@@ -21,6 +21,47 @@ class PaymentController extends Controller
         Stripe::setApiKey(config('services.stripe.secret'));
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/payments/{rentalId}",
+     *     summary="Créer un Payment Intent pour une location",
+     *     tags={"Payments"},
+     *     @OA\Parameter(
+     *         name="rentalId",
+     *         in="path",
+     *         required=true,
+     *         description="L'ID de la location",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Payment Intent créé avec succès",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="client_secret", type="string", example="pi_123456_secret_abc"),
+     *             @OA\Property(property="rental_id", type="integer", example=1),
+     *             @OA\Property(property="daily_price", type="number", example=150.00),
+     *             @OA\Property(property="publishable_key", type="string", example="pk_test_123456"),
+     *             @OA\Property(property="message", type="string", example="Payment intent created successfully")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Erreur de validation",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="Invalid rental period")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erreur interne du serveur",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="error", type="string", example="An error occurred while processing your payment")
+     *         )
+     *     )
+     * )
+     */
+
     public function createPaymentIntent($rentalId)
     {
         try {

@@ -1,0 +1,109 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Car Rental API",
+        "description": "Documentation de l'API de location de voitures",
+        "contact": {
+            "email": "votre-email@example.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/payments/{rentalId}": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Créer un Payment Intent pour une location",
+                "operationId": "3669e9d62b8086820c318d9cda079945",
+                "parameters": [
+                    {
+                        "name": "rentalId",
+                        "in": "path",
+                        "description": "L'ID de la location",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payment Intent créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client_secret": {
+                                            "type": "string",
+                                            "example": "pi_123456_secret_abc"
+                                        },
+                                        "rental_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "daily_price": {
+                                            "type": "number",
+                                            "example": 150
+                                        },
+                                        "publishable_key": {
+                                            "type": "string",
+                                            "example": "pk_test_123456"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Payment intent created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid rental period"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "An error occurred while processing your payment"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Payments",
+            "description": "Payments"
+        }
+    ]
+}
