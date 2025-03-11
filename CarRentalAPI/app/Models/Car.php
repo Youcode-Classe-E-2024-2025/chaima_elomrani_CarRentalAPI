@@ -13,6 +13,17 @@ class Car extends Model
 
     protected $fillable = ['name', 'model', 'color', 'price'];
 
+    protected $casts = [
+        'price' => 'decimal:2'
+    ];
+
+    /**
+     * Get the daily price attribute.
+     */
+    public function getDailyPriceAttribute()
+    {
+        return $this->price;
+    }
 
     public function rentals()
     {

@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('rental_id')->constrained()->onDelete('cascade');
-            $table->dateTime('payment_date');
-            $table->decimal('amount', 10, 2);
-            $table->string('status')->default('pending');
-            $table->string('stripe_payment_intent_id')->nullable();
+            $table->integer('amount'); // Amount in cents
+            $table->string('currency', 3)->default('USD');
+            $table->string('status');
+            $table->uuid('payment_reference')->unique();
+            $table->json('transaction_details')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }
@@ -29,4 +31,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('payments');
     }
-};
+}; 
