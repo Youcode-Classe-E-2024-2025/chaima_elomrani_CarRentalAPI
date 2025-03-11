@@ -13,4 +13,9 @@ class Car extends Model
 
     protected $fillable = ['name', 'model', 'color', 'price'];
 
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
+    }
 }

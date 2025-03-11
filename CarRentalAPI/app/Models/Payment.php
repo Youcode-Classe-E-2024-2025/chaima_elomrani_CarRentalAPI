@@ -14,4 +14,9 @@ class Payment extends Model
         'amount',
     ];
 
+    public function rental()
+    {
+        return $this->belongsTo(Rental::class);
+    }
+
 }
